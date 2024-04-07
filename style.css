@@ -1,0 +1,40 @@
+body {
+    background-color: black;
+}
+.main-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
+    align-items: center;
+}
+.name-input {
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 10px 25px;
+    outline: none;
+    font-size: 16px;
+    color: white;
+    background-color: black;
+}
+::placeholder {
+    color: white;
+    opacity: 0.75;
+}
+.submit-btn {
+    padding: 10px 25px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid white;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+    transition: 0.75s;
+}
+.submit-btn:hover {
+    color: white;
+    background-color: #d786d7;
+    border: none;
+    transform: scale(1.1);
+}

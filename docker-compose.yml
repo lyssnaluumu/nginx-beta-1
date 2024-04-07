@@ -1,0 +1,44 @@
+# --> full docker update cli <--
+# docker-compose down ; docker image rm $(docker images -q) ; docker build -t web-proxy . --no-cache ; cd .\php\ ; docker build -t php-server . --no-cache ; cd ..\db\ ; docker build -t postgres-server . --no-cache ; cd .. ; docker-compose up -d
+
+# docker-compose down
+# docker image rm $(docker images -q)
+
+# docker build -t web-proxy . --no-cache
+# cd .\php\
+# docker build -t php-server . --no-cache
+# cd ..\db\
+# docker build -t postgres-server . --no-cache
+# cd ..
+# docker-compose up -d
+
+version: "3.6"
+
+services:
+
+  test-db:
+    image: postgres-server
+    container_name: test-db
+    restart: always
+    volumes:
+      - ./db/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: $TASK_PASSWORD_DB
+      POSTGRES_USER: $TASK_USER_DB
+      POSTGRES_DB: $TASK_DB
+    ports:
+      - "5432:5432"
+  
+  proxy:
+      image: web-proxy
+      container_name: nginx-test
+      ports:
+      - "80:80"
+      restart: always
+  
+  php:
+    image: php-server
+    build:
+      context: contextPath
+    ports:
+      - "9000:9000"
